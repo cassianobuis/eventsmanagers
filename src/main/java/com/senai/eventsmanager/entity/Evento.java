@@ -12,22 +12,33 @@ public class Evento {
             GenerationType.AUTO,generator="UUID")
     @Column(nullable = false,updatable = false)
     private UUID id;
+
     @Column(nullable = false)
     private String nome;
+
     private String descricao;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EventoEnum tipo;
+
     @Column(nullable = false)
     private String local;
+
     @Column(nullable = false)
     private LocalDateTime data_inicio;
+
     @Column(nullable = false)
     private LocalDateTime data_final;
+
     private double valor;
+
     private String linkEvento;
+
     private String linkImagem;
+
     private LocalDateTime createdAt;
+
     private LocalDateTime updatedAt;
 
     //relacionamento com o objeto inscricao

@@ -1,45 +1,46 @@
 package com.senai.eventsmanager.service;
 
 
-import com.senai.eventsmanager.dto.EventoDTO;
 import com.senai.eventsmanager.dto.InscricaoDTO;
 import com.senai.eventsmanager.entity.Inscricao;
 import com.senai.eventsmanager.repository.InscricaoRepository;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Service
 public class InscricaoService {
     @Autowired
     private InscricaoRepository Repository;
 
-    public InscricaoDTO findById(UUID id){
+    public InscricaoDTO findById(Long id){
         Inscricao inscricao = Repository.findById(id).orElseThrow();
 
-        InscricaoDTO incricaoCreateDTO = convertToDto(inscricao);
+        InscricaoDTO incricaoCreateDTO = toDto(inscricao);
 
         return incricaoCreateDTO;
     }
     //método para salvar um evento
     public InscricaoDTO save(InscricaoDTO inscricaoCreateDTO){
-        Inscricao inscricao = convertToEntity(inscricaoCreateDTO);
+        Inscricao inscricao = toEntity(inscricaoCreateDTO);
         inscricao = Repository.save(inscricao);
-        return convertToDto(inscricao);
+        return toDto(inscricao);
     }
     //método para atulizar um evento
-    public InscricaoDTO update(UUID id, InscricaoDTO inscricaoCreateDTO){
-        Inscricao inscricao = convertToEntity(inscricaoCreateDTO);
+    public InscricaoDTO update(Long id, InscricaoDTO inscricaoCreateDTO){
+        Inscricao inscricao = toEntity(inscricaoCreateDTO);
         inscricao.setId(id);
         inscricao = Repository.save(inscricao);
-        return convertToDto(inscricao);
+        return toDto(inscricao);
     }
     //método para deletar todos os evento
-    public void deleteById(UUID id){
+    public void deleteById(Long id){
         Repository.deleteById(id);
     }
     //metodo para listar todos os evento
@@ -47,25 +48,20 @@ public class InscricaoService {
         List<Inscricao> inscricoes = Repository.findAll();
         List<InscricaoDTO> inscricaoCreateDTOS = new ArrayList<>();
         for (Inscricao inscricao : inscricoes) {
-        inscricaoCreateDTOS.add(convertToDto(inscricao));
+        inscricaoCreateDTOS.add(toDto(inscricao));
         }
         return inscricaoCreateDTOS;
     }
 
-    public InscricaoDTO convertToDto(Inscricao inscricao){
-        InscricaoDTO inscricaoCreateDTO = new InscricaoDTO();
-        inscricaoCreateDTO.setDataHora(inscricao.getDataHora());
-        inscricaoCreateDTO.setEvento(inscricao.getEvento());
-        inscricaoCreateDTO.setUsuario(inscricao.getUsuario());
-        inscricaoCreateDTO.setStatusPagamento(inscricao.getStatusPagamento());
-        return inscricaoCreateDTO;
+    public InscricaoDTO toDto(Inscricao inscricao){
+        InscricaoDTO dto = new InscricaoDTO();
+        BeanUtils.copyProperties(inscricao, dto );
+        return dto;
     }
-    public Inscricao convertToEntity(InscricaoDTO inscricaoCreateDTO){
+
+    public Inscricao toEntity(InscricaoDTO dto){
         Inscricao inscricao = new Inscricao();
-        inscricao.setDataHora(inscricaoCreateDTO.getDataHora());
-        inscricao.setEvento(inscricaoCreateDTO.getEvento());
-        inscricao.setUsuario(inscricaoCreateDTO.getUsuario());
-        inscricao.setStatusPagamento(inscricaoCreateDTO.getStatusPagamento());
+        BeanUtils.copyProperties(dto, inscricao);
         return inscricao;
     }
 }

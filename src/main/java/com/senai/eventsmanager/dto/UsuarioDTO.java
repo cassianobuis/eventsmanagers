@@ -1,5 +1,6 @@
 package com.senai.eventsmanager.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -7,11 +8,18 @@ import jakarta.validation.constraints.Size;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.senai.eventsmanager.Enum.UsuarioEnum;
 
 public class UsuarioDTO {
 
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Long id;
+
+
     @NotBlank(message = "O email é obrigatório")
-    @Size(max = 100, message = "O email deve ter no máximo 100 caracteres")
+    @Email(message = "O email deve ser válido")
     private String email;
 
     @NotBlank(message = "A senha é obrigatória")
@@ -23,15 +31,18 @@ public class UsuarioDTO {
     private String nome;
 
     @NotBlank(message = "O CPF é obrigatório")
-    @Size(max = 15, message = "O CPF deve ter no máximo 15 caracteres")
+    @JsonFormat(pattern = "###.###.###-##")
     private String cpf;
+
+    @NotNull(message = "O tipo de usuário é obrigatório")
+    private UsuarioEnum tipo;
 
     @NotBlank(message = "O telefone é obrigatório")
     @Size(max = 15, message = "O telefone deve ter no máximo 15 caracteres")
     private String telefone;
 
     @NotNull(message = "A data de nascimento é obrigatória")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataNascimento;
 
 

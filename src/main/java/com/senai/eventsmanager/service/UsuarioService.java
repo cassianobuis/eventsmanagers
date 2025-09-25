@@ -1,12 +1,14 @@
 package com.senai.eventsmanager.service;
 
 
-import com.senai.eventsmanager.dto.UsuarioCreateDTO;
+import com.senai.eventsmanager.dto.UsuarioDTO;
 import com.senai.eventsmanager.entity.Usuario;
 import com.senai.eventsmanager.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -14,13 +16,40 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository Repository;
 
-    public Usuario findById(UUID id){
+    public UsuarioDTO findById(UUID id){
         Usuario usuario = Repository.findById(id).orElseThrow();
 
-        return usuario;
+        return convertToDto(usuario);
     }
-    public UsuarioCreateDTO convertToDto(Usuario usuario){
-        UsuarioCreateDTO usuarioCreateDTO = new UsuarioCreateDTO();
+    //método para salvar um evento
+    public UsuarioDTO save(UsuarioDTO usuarioCreateDTO) {
+        Usuario usuario = convertToEntity(usuarioCreateDTO);
+        usuario = Repository.save(usuario);
+        return convertToDto(usuario);
+    }
+    //método para atulizar um evento
+    public UsuarioDTO update(UUID id,UsuarioDTO usuarioCreateDTO) {
+        Usuario usuario = convertToEntity(usuarioCreateDTO);
+        usuario.setId(id);
+        usuario = Repository.save(usuario);
+        return convertToDto(usuario);
+    }
+    //metodo para deletar um evento
+    public void deleteById(UUID id) {
+        Repository.deleteById(id);
+    }
+    //metodo para listar todos os evento
+    public List<UsuarioDTO> findAll() {
+        List<Usuario> usuarios = Repository.findAll();
+        List<UsuarioDTO> usuarioCreateDTOS = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            usuarioCreateDTOS.add(convertToDto(usuario));
+        }
+        return usuarioCreateDTOS;
+    }
+
+    public UsuarioDTO convertToDto(Usuario usuario){
+        UsuarioDTO usuarioCreateDTO = new UsuarioDTO();
         usuarioCreateDTO.setCpf(usuario.getCpf());
         usuarioCreateDTO.setNome(usuario.getNome());
         usuarioCreateDTO.setEmail(usuario.getEmail());
@@ -30,7 +59,7 @@ public class UsuarioService {
         usuarioCreateDTO.setDataNascimento(usuario.getDataNascimento());
         return usuarioCreateDTO;
     }
-    public Usuario convertToEntity(UsuarioCreateDTO usuarioCreateDTO){
+    public Usuario convertToEntity(UsuarioDTO usuarioCreateDTO){
         Usuario usuario = new Usuario();
         usuario.setCpf(usuarioCreateDTO.getCpf());
         usuario.setNome(usuarioCreateDTO.getNome());

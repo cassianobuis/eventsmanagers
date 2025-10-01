@@ -7,9 +7,12 @@ import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.senai.eventsmanager.Enum.UsuarioEnum;
+import com.senai.eventsmanager.validation.DeveTerNumeros;
 
 public class UsuarioDTO {
 
@@ -23,7 +26,7 @@ public class UsuarioDTO {
     private String email;
 
     @NotBlank(message = "A senha é obrigatória")
-    @Size(max = 15, message = "A senha deve ter no máximo 15 caracteres")
+    @DeveTerNumeros
     private String senha;
 
     @NotBlank(message = "O nome é obrigatório")
@@ -31,7 +34,7 @@ public class UsuarioDTO {
     private String nome;
 
     @NotBlank(message = "O CPF é obrigatório")
-    @JsonFormat(pattern = "###.###.###-##")
+    @CPF
     private String cpf;
 
     @NotNull(message = "O tipo de usuário é obrigatório")

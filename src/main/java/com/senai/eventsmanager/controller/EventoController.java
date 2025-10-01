@@ -1,13 +1,14 @@
 package com.senai.eventsmanager.controller;
 
 import com.senai.eventsmanager.dto.EventoDTO;
-import com.senai.eventsmanager.repository.EventoRepository;
 import com.senai.eventsmanager.service.EventoService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/evento")
@@ -15,10 +16,8 @@ import java.util.UUID;
 public class EventoController {
     @Autowired
      private EventoService service;
-
-    // pegar um evento pelo seu id
     @GetMapping("/{id}")
-    public EventoDTO findById(@PathVariable("id") UUID id){
+    public EventoDTO findById(@PathVariable("id") Long id){
         return service.findById(id);
     }
 
@@ -32,7 +31,7 @@ public class EventoController {
 
     // salvar um evento
     @PostMapping
-    public EventoDTO save(@RequestBody EventoDTO eventoCreateDTO ){
+    public EventoDTO save(@RequestBody @Valid EventoDTO eventoCreateDTO ){
         return service.save(eventoCreateDTO);
 
     }
@@ -40,14 +39,14 @@ public class EventoController {
     // atualizar um evento
     @PutMapping("/{id}")
     public EventoDTO update(
-            @PathVariable("id")UUID id,
+            @PathVariable("id")Long id,
             @RequestBody EventoDTO eventoCreateDTO){
         return service.update(id,eventoCreateDTO);
     }
 
     // deletar um evento pelo seu id
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable("id")UUID id){
+    public void deleteById(@PathVariable("id")Long id){
         service.deleteById(id);
     }
 

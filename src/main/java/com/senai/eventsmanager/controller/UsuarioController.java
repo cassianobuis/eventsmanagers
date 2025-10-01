@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping ("/api/v1/usuario")
@@ -17,7 +16,7 @@ public class UsuarioController {
     UsuarioService service;
 
     @GetMapping ("/{id}")
-    public UsuarioDTO findById(@PathVariable("id")UUID id){
+    public UsuarioDTO findById(@PathVariable("id")Long id){
         return service.findById(id);
     }
 
@@ -31,13 +30,13 @@ public class UsuarioController {
         return service.save(usuarioCreateDTO);
     }
     @PutMapping("/{id}")
-public UsuarioDTO update(@PathVariable("id")UUID id,
+public UsuarioDTO update(@PathVariable("id")Long id,
                                @RequestBody UsuarioDTO usuarioCreateDTO){
         return service.update(id,usuarioCreateDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable("id")UUID id){
+    public void deleteById(@PathVariable("id")Long id){
         service.deleteById(id);
     }
 

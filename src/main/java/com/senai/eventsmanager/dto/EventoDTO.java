@@ -33,7 +33,6 @@ public class EventoDTO {
     private String descricao;
 
     @NotNull(message = "O tipo do evento é obrigatório")
-    @Size(max = 50, message = "O tipo do evento deve ter no máximo 50 caracteres")
     private EventoEnum tipo;
 
     @NotBlank(message = "O local do evento é obrigatório")
@@ -41,11 +40,11 @@ public class EventoDTO {
     private String local;
 
     @NotNull(message = "A data de início do evento é obrigatória")
-    @JsonFormat(pattern = "dd/mm/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataInicio;
 
     @NotNull(message = "A data de término do evento é obrigatória")
-    @JsonFormat(pattern = "dd/mm/yyyy HH:mm")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataFinal;
 
 

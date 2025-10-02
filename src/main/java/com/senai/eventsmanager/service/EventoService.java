@@ -31,7 +31,7 @@ public class EventoService {
 
 
     public List<EventoDTO> calendario(String inicio, String fim){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy        ");
 
         LocalDateTime inicioFormatado = LocalDate.parse(inicio, formatter).atStartOfDay();
         LocalDateTime fimFormDate = LocalDate.parse(fim, formatter).atStartOfDay();

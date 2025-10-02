@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface EventoRepository extends
         JpaRepository<Evento, Long> {
 
-            @Query("SELECT e FROM Evento e WHERE e.dataInicio BETWEEN inicio AND :fim or e.dataFim BETWEEN :inicio AND :fim")
+            @Query("SELECT e FROM Evento e WHERE e.dataInicio BETWEEN :inicio AND :fim or e.dataFinal BETWEEN :inicio AND :fim")
             List<Evento> calendario(LocalDateTime inicio, LocalDateTime fim);
 
 }

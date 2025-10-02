@@ -15,6 +15,7 @@ public class UsuarioController {
     @Autowired
     UsuarioService service;
 
+
     @GetMapping ("/{id}")
     public UsuarioDTO findById(@PathVariable("id")Long id){
         return service.findById(id);

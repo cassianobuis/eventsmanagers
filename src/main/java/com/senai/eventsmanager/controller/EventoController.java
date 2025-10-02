@@ -16,11 +16,21 @@ import java.util.List;
 public class EventoController {
     @Autowired
      private EventoService service;
+
+
+     
+    @GetMapping("/calendario/{dataInicio}/{dataFim}")
+    public List<EventoDTO> calendario(@PathVariable String dataInicio, @PathVariable String dataFim){
+        return service.calendario(dataInicio, dataFim);
+
+    }
+
+
+
     @GetMapping("/{id}")
     public EventoDTO findById(@PathVariable("id") Long id){
         return service.findById(id);
     }
-
 
     // pegar todos os eventos
     @GetMapping

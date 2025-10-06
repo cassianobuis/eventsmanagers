@@ -4,6 +4,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -14,6 +18,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.senai.eventsmanager.Enum.UsuarioEnum;
 import com.senai.eventsmanager.validation.DeveTerNumeros;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UsuarioDTO {
 
 

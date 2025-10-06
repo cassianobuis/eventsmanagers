@@ -1,5 +1,6 @@
 package com.senai.eventsmanager.repository;
 
+import com.senai.eventsmanager.Enum.EventoEnum;
 import com.senai.eventsmanager.entity.Evento;
 
 
@@ -16,5 +17,8 @@ public interface EventoRepository extends
 
             @Query("SELECT e FROM Evento e WHERE e.dataInicio BETWEEN :inicio AND :fim or e.dataFinal BETWEEN :inicio AND :fim")
             List<Evento> calendario(LocalDateTime inicio, LocalDateTime fim);
+
+            @Query("select e from Evento e WHERE e.tipo = :tipo")
+            List<Evento> findByTipo(EventoEnum tipo);
 
 }

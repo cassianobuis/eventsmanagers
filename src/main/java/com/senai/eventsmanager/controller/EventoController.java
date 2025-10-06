@@ -1,5 +1,6 @@
 package com.senai.eventsmanager.controller;
 
+import com.senai.eventsmanager.Enum.EventoEnum;
 import com.senai.eventsmanager.dto.EventoDTO;
 import com.senai.eventsmanager.service.EventoService;
 
@@ -18,7 +19,14 @@ public class EventoController {
      private EventoService service;
 
 
-     
+     @GetMapping("/filtro/{tipo}")
+    public List<EventoDTO> filtro(@PathVariable("tipo") EventoEnum tipo){
+        return service.findByTipo(tipo);
+    }
+
+
+
+    
     @GetMapping("/calendario/{dataInicio}/{dataFim}")
     public List<EventoDTO> calendario(@PathVariable String dataInicio, @PathVariable String dataFim){
         return service.calendario(dataInicio, dataFim);

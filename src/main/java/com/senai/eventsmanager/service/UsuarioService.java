@@ -1,6 +1,7 @@
 package com.senai.eventsmanager.service;
 
 
+import com.senai.eventsmanager.Enum.UsuarioEnum;
 import com.senai.eventsmanager.dto.UsuarioDTO;
 import com.senai.eventsmanager.entity.Usuario;
 import com.senai.eventsmanager.repository.UsuarioRepository;
@@ -16,6 +17,16 @@ import java.util.List;
 public class UsuarioService {
     @Autowired
     private UsuarioRepository Repository;
+
+
+    public List<UsuarioDTO> findByTipo(UsuarioEnum tipo){
+        List<Usuario> usuarios = Repository.findByTipo(tipo);
+        List<UsuarioDTO> usuarioDTOs = new ArrayList<>();
+        for(Usuario usuario : usuarios){
+            usuarioDTOs.add(toDto(usuario));
+        }
+        return usuarioDTOs;
+    }
 
     public UsuarioDTO findById(Long id){
         Usuario usuario = Repository.findById(id).orElseThrow();

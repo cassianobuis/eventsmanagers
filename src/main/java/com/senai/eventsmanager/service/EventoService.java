@@ -1,6 +1,7 @@
 package com.senai.eventsmanager.service;
 
 
+import com.senai.eventsmanager.Enum.EventoEnum;
 import com.senai.eventsmanager.dto.EventoDTO;
 import com.senai.eventsmanager.entity.Evento;
 import com.senai.eventsmanager.repository.EventoRepository;
@@ -20,13 +21,24 @@ public class EventoService {
     @Autowired
     private EventoRepository repository;
 
+
+    public List<EventoDTO> findByTipo(EventoEnum tipo){
+        List<Evento> eventos = repository.findByTipo(tipo);
+        List<EventoDTO> eventoDTOs = new ArrayList<>();
+        for(Evento evento : eventos){
+            eventoDTOs.add(toDto(evento));
+        }
+        return eventoDTOs;
+    }
+
+
+    
     public EventoDTO findById(Long id) {
         Evento evento = repository.findById(id).orElseThrow();
 
         EventoDTO eventoCreateDTO = toDto(evento);
         return eventoCreateDTO;
     }
-
 
 
 

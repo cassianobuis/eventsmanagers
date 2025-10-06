@@ -1,0 +1,20 @@
+package com.senai.eventsmanager.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class AuthDTO {
+
+    @NotBlank(message = "email é obrigatorio")
+     private String email;
+     
+     @NotBlank(message = "senha é obrigatorio")
+      private String senha;
+}
